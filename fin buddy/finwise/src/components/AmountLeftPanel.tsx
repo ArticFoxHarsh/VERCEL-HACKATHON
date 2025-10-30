@@ -80,7 +80,7 @@ export default function AmountLeftPanel({ monthlyAllowance, onBudgetUpdate }: Am
   const isWarning = percentageSpent > 80 && percentageSpent <= 100;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-6 shadow-card hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+    <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700/30 dark:to-gray-700/50 rounded-2xl p-4 md:p-6 shadow-card hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-gray-200 dark:border-gray-700">
       <div className="flex items-center justify-between mb-4 md:mb-6">
         <div>
           <h3 className="text-lg font-bold text-gray-900 dark:text-white">Budget Overview</h3>

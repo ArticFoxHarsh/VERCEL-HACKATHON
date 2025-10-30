@@ -10,8 +10,7 @@ import AmountLeftPanel from '@/components/AmountLeftPanel';
 import SavingsGoals from '@/components/SavingsGoals';
 import ExpenseSplitter from '@/components/ExpenseSplitter';
 import WishlistTracker from '@/components/WishlistTracker';
-import EMICalculator from '@/components/EMICalculator';
-import SIPCalculator from '@/components/SIPCalculator';
+// EMI and SIP calculators moved to /financial-calculator
 import { MOCK_PLAYER, generateTasksForAllowance } from '@/lib/mockData';
 import { calculateLevel, getLevelInfo } from '@/lib/utils';
 import { Player } from '@/types';
@@ -241,27 +240,6 @@ export default function DashboardPage() {
         {/* Wishlist Tracker */}
         <div className="md:col-span-2 xl:col-span-1">
           <WishlistTracker />
-        </div>
-      </div>
-
-      {/* Financial Calculators Section */}
-      <div className="mb-4">
-        <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4">
-          🧮 Financial Calculators
-        </h2>
-      </div>
-
-      {/* Third Row - Calculators */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-        
-        {/* EMI Calculator */}
-        <div>
-          <EMICalculator />
-        </div>
-
-        {/* SIP Calculator */}
-        <div>
-          <SIPCalculator />
         </div>
       </div>
 

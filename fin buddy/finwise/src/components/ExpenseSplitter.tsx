@@ -219,7 +219,7 @@ export default function ExpenseSplitter() {
 
       {/* Create Group Form */}
       {showGroupForm && (
-            <div className="mb-4 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+            <div className="mb-4 p-4 bg-gradient-to-br from-sky-100 to-lavender-100 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl border-2 border-sky-300 dark:border-sky-700">
           <div className="grid grid-cols-1 gap-3">
             <input
               type="text"

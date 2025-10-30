@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from './ThemeToggle';
+import { Menu, X } from 'lucide-react';
 
 interface Player {
   total_xp_earned: number;
@@ -12,6 +13,7 @@ interface Player {
 export const Header: React.FC = () => {
   const pathname = usePathname();
   const [player, setPlayer] = useState<Player | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const loadPlayer = () => {
@@ -50,7 +52,19 @@ export const Header: React.FC = () => {
             </span>
           </Link>
 
-          {/* Navigation */}
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg hover:bg-green-100 dark:hover:bg-green-800/50"
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6 text-gray-700 dark:text-gray-300" />
+            ) : (
+              <Menu className="h-6 w-6 text-gray-700 dark:text-gray-300" />
+            )}
+          </button>
+
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
             <Link
               href="/dashboard"
@@ -61,6 +75,16 @@ export const Header: React.FC = () => {
               }`}
             >
               Dashboard
+            </Link>
+            <Link
+              href="/financial-calculator"
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                isActive('/financial-calculator')
+                  ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-800/50'
+              }`}
+            >
+              Calculators
             </Link>
             <Link
               href="/courses"
@@ -106,6 +130,76 @@ export const Header: React.FC = () => {
             <ThemeToggle />
           </div>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden">
+            <nav className="px-2 pt-2 pb-3 space-y-1 border-t border-green-200 dark:border-green-700">
+              <Link
+                href="/dashboard"
+                className={`block px-3 py-2 rounded-lg text-base font-medium transition-all ${
+                  isActive('/dashboard')
+                    ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-800/50'
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
+              <Link
+                href="/financial-calculator"
+                className={`block px-3 py-2 rounded-lg text-base font-medium transition-all ${
+                  isActive('/financial-calculator')
+                    ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-800/50'
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Calculators
+              </Link>
+              <Link
+                href="/courses"
+                className={`block px-3 py-2 rounded-lg text-base font-medium transition-all ${
+                  isActive('/courses')
+                    ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-800/50'
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Courses
+              </Link>
+              <Link
+                href="/ads"
+                className={`block px-3 py-2 rounded-lg text-base font-medium transition-all ${
+                  isActive('/ads')
+                    ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-800/50'
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Advisors
+              </Link>
+              <Link
+                href="/mentor"
+                className={`block px-3 py-2 rounded-lg text-base font-medium transition-all ${
+                  isActive('/mentor')
+                    ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-green-100 dark:hover:bg-green-800/50'
+                }`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                AI Mentor
+              </Link>
+              {hasDiscount && (
+                <div className="mx-3 mt-2 px-3 py-2 bg-gradient-to-r from-amber-400 to-yellow-400 text-gray-800 rounded-lg text-sm font-semibold shadow-lg">
+                  <span>🎯 Level {playerLevel}</span>
+                  <span className="mx-2 opacity-75">•</span>
+                  <span>{discountPercentage}% OFF</span>
+                </div>
+              )}
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );

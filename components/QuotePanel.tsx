@@ -7,11 +7,11 @@ export default function QuotePanel() {
   const quote = getQuoteOfTheDay();
 
   return (
-    <div className="glass-card rounded-2xl p-4 md:p-6 bg-gradient-to-br from-sky-100 to-lavender-100 dark:from-indigo-900/20 dark:to-purple-900/20 border-2 border-sky-300 dark:border-sky-700 hover:shadow-xl transition-all duration-300 hover:scale-[1.01]">
+    <div className="bg-gradient-to-br from-sky-100 to-lavender-100 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-2xl p-4 md:p-6 shadow-card hover:shadow-xl transition-all duration-300 hover:scale-[1.01] border-2 border-sky-300 dark:border-sky-700">
       <div className="flex items-start gap-3 md:gap-4">
         {/* Quote Icon */}
         <div className="flex-shrink-0">
-          <div className="w-12 h-12 bg-gradient-to-br from-sky-400 via-blue-400 to-violet-400 rounded-xl flex items-center justify-center">
+          <div className="w-12 h-12 bg-gradient-to-r from-sky-400 via-blue-400 to-violet-400 rounded-xl flex items-center justify-center">
             <svg
               className="w-6 h-6 text-white"
               fill="currentColor"

@@ -99,7 +99,7 @@ export default function SavingsGoals() {
 
       {/* Add Goal Form */}
       {showAddForm && (
-        <div className="mb-4 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div className="mb-4 p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl border-2 border-green-300 dark:border-green-700">
           <div className="grid grid-cols-1 gap-3">
             <input
               type="text"

@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 interface Product {
   id: string;
@@ -86,6 +88,46 @@ export default function ShoppingPage() {
     },
   };
 
+  const handleVoiceInput = () => {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Speech recognition is not supported in your browser. Please use Chrome.');
+      return;
+    }
+
+    // @ts-ignore - webkitSpeechRecognition is not in the types
+    const recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => {
+      const micButton = document.querySelector('[aria-label="Voice input"]');
+      if (micButton) {
+        micButton.classList.add('ring-2', 'ring-red-500');
+      }
+    };
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setSearchQuery(transcript);
+      setTimeout(handleSearch, 300); // Auto search after voice input
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error('Speech recognition error:', event.error);
+      alert('Error with speech recognition. Please try again.');
+    };
+
+    recognition.onend = () => {
+      const micButton = document.querySelector('[aria-label="Voice input"]');
+      if (micButton) {
+        micButton.classList.remove('ring-2', 'ring-red-500');
+      }
+    };
+
+    recognition.start();
+  };
+
   const handleSearch = () => {
     if (!searchQuery.trim()) return;
 
@@ -120,15 +162,12 @@ export default function ShoppingPage() {
   return (
     <div className="min-h-screen pb-8 px-4 md:px-6 max-w-7xl mx-auto">
       <div className="mb-6 pt-6">
-        <button
-          onClick={() => router.push('/dashboard')}
-          className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors mb-4"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Dashboard
-        </button>
+        <Link href="/dashboard" className="group flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors duration-200 mb-4">
+          <div className="p-2 rounded-xl bg-white/50 dark:bg-gray-800/50 group-hover:bg-white dark:group-hover:bg-gray-800 border border-gray-200 dark:border-gray-700 group-hover:border-gray-300 dark:group-hover:border-gray-600 shadow-sm transition-all duration-200 group-hover:-translate-x-0.5">
+            <ArrowLeft className="w-5 h-5" />
+          </div>
+          <span className="font-medium">Back</span>
+        </Link>
 
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
           🛒 Smart Shopping
@@ -149,6 +188,14 @@ export default function ShoppingPage() {
             placeholder="Search for products (e.g., milk, bread, rice)..."
             className="flex-1 px-4 py-3 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-sky-500 dark:focus:border-indigo-400 focus:outline-none transition-colors"
           />
+          <button
+            onClick={handleVoiceInput}
+            type="button"
+            className="p-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-2 border-gray-200 dark:border-gray-700 rounded-xl hover:border-sky-500 dark:hover:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-sky-500 transition-all group"
+            aria-label="Voice input"
+          >
+            <div className="w-6 h-6 transition-transform group-hover:scale-110">🎤</div>
+          </button>
           <button
             onClick={handleSearch}
             disabled={loading}

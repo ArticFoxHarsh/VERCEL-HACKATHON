@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { ChatMessage } from '@/types';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 export default function MentorPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([
@@ -71,23 +73,67 @@ export default function MentorPage() {
   };
 
   const handleVoiceInput = () => {
-    // Mock voice input function
-    alert('Voice input feature coming soon!');
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Speech recognition is not supported in your browser. Please use Chrome.');
+      return;
+    }
+
+    // @ts-ignore - webkitSpeechRecognition is not in the types
+    const recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => {
+      // Visual feedback that recording has started
+      const micButton = document.querySelector('[aria-label="Voice input"]');
+      if (micButton) {
+        micButton.classList.add('bg-red-100', 'dark:bg-red-900/30');
+        micButton.classList.remove('bg-gray-100', 'dark:bg-gray-700');
+      }
+    };
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setInput(transcript);
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error('Speech recognition error:', event.error);
+      alert('Error with speech recognition. Please try again.');
+    };
+
+    recognition.onend = () => {
+      // Reset visual feedback
+      const micButton = document.querySelector('[aria-label="Voice input"]');
+      if (micButton) {
+        micButton.classList.remove('bg-red-100', 'dark:bg-red-900/30');
+        micButton.classList.add('bg-gray-100', 'dark:bg-gray-700');
+      }
+    };
+
+    recognition.start();
   };
 
   return (
-    <div className="max-w-5xl mx-auto">
-      {/* Page Header */}
+      <div className="max-w-5xl mx-auto">
+      {/* Back Button and Page Header */}
       <div className="mb-8">
+        <div className="flex items-center gap-4 mb-4">
+          <Link href="/dashboard" className="group flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors duration-200">
+            <div className="p-2 rounded-xl bg-white/50 dark:bg-gray-800/50 group-hover:bg-white dark:group-hover:bg-gray-800 border border-gray-200 dark:border-gray-700 group-hover:border-gray-300 dark:group-hover:border-gray-600 shadow-sm transition-all duration-200 group-hover:-translate-x-0.5">
+              <ArrowLeft className="w-5 h-5" />
+            </div>
+            <span className="font-medium">Back</span>
+          </Link>
+        </div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
           AI Financial Mentor
         </h1>
         <p className="text-gray-600 dark:text-gray-400">
           Get personalized financial advice from FinBuddy
         </p>
-      </div>
-
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-card overflow-hidden">
+      </div>      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-card overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-6 text-white">
           <div className="flex items-center space-x-3">

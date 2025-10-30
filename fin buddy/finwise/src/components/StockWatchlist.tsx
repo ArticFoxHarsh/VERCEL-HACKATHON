@@ -247,7 +247,7 @@ export default function StockWatchlist() {
           stocks.map((stock) => (
             <div
               key={stock.id}
-              className="p-4 bg-gray-50 dark:bg-gray-700/30 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all"
+              className="p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700/30 dark:to-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">

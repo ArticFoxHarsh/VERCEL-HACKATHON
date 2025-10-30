@@ -73,7 +73,7 @@ export default function WeeklyExpenseChart({ refreshTrigger }: WeeklyExpenseChar
   weekEndDate.setDate(weekEndDate.getDate() + 6);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-6 shadow-card hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+    <div className="bg-green-50 dark:bg-green-900/20 rounded-2xl p-4 md:p-6 shadow-card hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-green-200 dark:border-green-700">
       <div className="flex items-center justify-between mb-4 md:mb-6">
         <div>
           <h3 className="text-lg font-bold text-gray-900 dark:text-white">Weekly Expenses</h3>

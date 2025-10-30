@@ -10,7 +10,6 @@ Inspired by the *Solo Leveling System*, every healthy money habit earns XP and u
 ## 🌍 Live Demo
 🔗 **[https://finwise.vercel.app](https://finwise.vercel.app)**  
 🎥 **1-Minute Demo Video:** *Add Loom / YouTube link here*
-
 ---
 
 ## 🚀 Version 2.0 – Major Dashboard Redesign

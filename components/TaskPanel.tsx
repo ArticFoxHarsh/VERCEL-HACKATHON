@@ -66,7 +66,7 @@ export default function TaskPanel({ monthlyAllowance, onTaskComplete }: TaskPane
   const progress = (completedCount / tasks.length) * 100;
 
   return (
-    <div className="glass-card rounded-2xl p-4 md:p-6 hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+    <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700/30 dark:to-gray-700/50 rounded-2xl p-4 md:p-6 shadow-card hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-gray-200 dark:border-gray-700">
       {/* Header */}
       <div className="flex items-center justify-between mb-4 md:mb-6">
         <div>
@@ -110,7 +110,7 @@ export default function TaskPanel({ monthlyAllowance, onTaskComplete }: TaskPane
               className={`group relative p-4 rounded-xl border-2 transition-all cursor-pointer hover:shadow-md ${
                 isCompleted
                   ? 'bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-500'
-                  : 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:border-sky-500'
+                  : 'bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700/30 dark:to-gray-700/50 border-gray-200 dark:border-gray-700 hover:border-sky-500'
               }`}
               onClick={() => handleTaskToggle(task)}
             >
